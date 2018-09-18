@@ -1,0 +1,528 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+input {
+  font: inherit;
+}
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: rgb(228, 212, 207);
+  overflow: hidden;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+}
+.page > aside {
+  width: 25%;
+  background: RGB(85, 88, 109);
+  color: RGB(244, 246, 247);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+.page > main {
+  flex-grow: 1;
+  max-width: 75%;
+  display: flex;
+  overflow: hidden;
+}
+
+/*aside*/
+aside > div {
+  width: 180px;
+  max-width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  position: absolute;
+}
+aside > div:hover,
+aside > div.active {
+  background: RGB(244, 246, 247);
+  color: RGB(85, 88, 109);
+  border-radius: 10px;
+  cursor: pointer;
+}
+aside > .songUpload-selector {
+  top: 100px;
+}
+aside > .songList-selector {
+  top: 200px;
+}
+
+/*main*/
+/*控制歌曲列表的显示*/
+main > .songList-container.active {
+  flex-grow: 1;
+  background: RGB(243, 235, 235);
+  display: flex;
+  flex-direction: column;
+}
+main > .songEdit-container {
+  width: 62%;
+  display: none;
+}
+/*控制歌曲编辑栏的显示*/
+main.edit > .songEdit-container {
+  display: flex;
+}
+main.edit > .songList-container,
+main.edit > .songUpload-container {
+  max-width: 38%;
+}
+/*控制歌曲列表 上传页面的显示*/
+main > .songList-container,
+main > .songUpload-container {
+  display: none;
+}
+main > .songUpload-container.active {
+  display: flex;
+}
+
+.songList-container .songList-title {
+  height: 60px;
+  line-height: 60px;
+  font-size: 24px;
+  border-bottom: 5px solid RGB(234, 226, 226);
+  color: #9997a4;
+  padding-left: 80px;
+}
+.songList-container .songListArea {
+  flex-grow: 1;
+  overflow: auto;
+}
+.songList-container .songListArea li {
+  border-bottom: 2px solid RGB(234, 226, 226);
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.songListArea li:hover {
+  background: RGB(234, 226, 226);
+  cursor: pointer;
+}
+.songListArea li.active {
+  background: white;
+}
+.songListArea li > .songName {
+  padding-left: 80px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 24px;
+  color: RGB(79, 82, 105);
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.songListArea li > .singer {
+  padding-left: 80px;
+  height: 32px;
+  line-height: 32px;
+  color: RGB(151, 149, 156);
+}
+.songListArea li > .link {
+  padding-left: 80px;
+  height: 32px;
+  line-height: 32px;
+  color: RGB(151, 149, 156);
+  white-space: nowrap;
+  overflow: auto;
+}
+/*歌曲列表页面缩小时*/
+main.edit .songListArea li {
+  height: 80px;
+}
+main.edit .songListArea li.active {
+  background: #ffffff;
+}
+main.edit .songListArea li > .link {
+  display: none;
+}
+
+/*上传页面*/
+main > .songUpload-container.active {
+  flex-grow: 1;
+  background: RGB(243, 235, 235);
+  flex-direction: column;
+}
+.songUpload-container > .upload-title {
+  height: 60px;
+  line-height: 60px;
+  font-size: 24px;
+  border-bottom: 5px solid RGB(234, 226, 226);
+  color: #9997a4;
+  padding-left: 80px;
+}
+/*上传栏缩小时*/
+main.edit .songUpload-container > .upload-title {
+  padding-left: 50px;
+}
+/*上传按钮*/
+.songUpload-container > #uploadButtonWrapper {
+  height: 120px;
+  border-bottom: 5px solid RGB(234, 226, 226);
+}
+#uploadButtonWrapper > #uploadButton {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: #f1ebeb;
+  text-align: left;
+}
+#uploadButtonWrapper > #uploadButton:hover {
+  background: RGB(234, 226, 226);
+  cursor: pointer;
+}
+#uploadButton:focus {
+  outline: none;
+  border: none;
+}
+#uploadButton > span {
+  margin-left: 80px;
+  height: 80px;
+  line-height: 80px;
+  font-size: 36px;
+  color: #484c61;
+}
+#uploadButton > span > svg {
+  fill: #484c61;
+  width: 1.2em;
+  height: 1.2em;
+}
+/*上传页面缩小时*/
+main.edit #uploadButtonWrapper {
+}
+main.edit #uploadButton > span {
+  margin-left: 50px;
+}
+
+/*上传文件信息*/
+.songUpload-container.active > .uploadList {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*解决表格 td 与编辑栏有空隙的 bug*/
+.uploadList {
+  margin-right: -1px;
+}
+/*表格*/
+/*当上传页面缩小时,表格的显示*/
+main.edit .uploadListHead > div:nth-child(2),
+main.edit .uploadListHead > div:nth-child(3),
+main.edit .uploadListBody .progressFileSize,
+main.edit .uploadListBody .progressDetail {
+  display: none;
+}
+/*表头*/
+.uploadList > .uploadListHead {
+  width: 100%;
+  border-bottom: 2px solid RGB(234, 226, 226);
+  display: flex;
+  font-size: 24px;
+  font-weight: bold;
+  min-height: 60px;
+}
+.uploadList > .uploadListHead > div {
+  line-height: 60px;
+  height: 60px;
+}
+.uploadList > .uploadListHead > div:nth-child(1) {
+  padding-left: 50px;
+  width: 30%;
+}
+.uploadList > .uploadListHead > div:nth-child(2) {
+  width: 15%;
+}
+.uploadList > .uploadListHead > div:nth-child(3) {
+  width: 55%;
+}
+
+/*表体*/
+.uploadList > .uploadListBody {
+  flex-grow: 1;
+  overflow: auto;
+}
+.uploadList > .uploadListBody > ul > li {
+  height: 80px;
+  border-bottom: 2px solid RGB(234, 226, 226);
+  color: #9e9ea6;
+  display: flex;
+}
+.uploadList > .uploadListBody > ul > li:hover {
+  background: #e8e2e2;
+  cursor: pointer;
+}
+.uploadList > .uploadListBody li > .progressName {
+  padding-left: 80px;
+  padding-right: 20px;
+  width: 30%;
+  height: 80px;
+  line-height: 80px;
+  overflow: hidden;
+}
+.uploadList > .uploadListBody li > .progressFileSize {
+  width: 15%;
+  height: 80px;
+  line-height: 80px;
+}
+.uploadList > .uploadListBody li > .progressDetail {
+  width: 55%;
+}
+
+/*当上传页面缩小时*/
+main.edit .uploadList > .uploadListBody > ul > li,
+main.edit .uploadList > .uploadListBody > ul > li > .progressName {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+}
+main.edit .uploadList > .uploadListBody > ul > li > .progressName {
+  padding-left: 50px;
+}
+main.edit .uploadList > .uploadListBody > ul > li:hover {
+  background: white;
+}
+main.edit .uploadList > .uploadListBody > ul > li.active {
+  background: #ffffff;
+  border-bottom: 2px solid #f7f8fc;
+}
+/*表体第三列,控制上传进度条与文件信息的切换*/
+.uploadList > .uploadListBody li .uploadStatus {
+  display: none;
+}
+.uploadList > .uploadListBody li.active .uploadStatus,
+.uploadList > .uploadListBody li .fileDetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80px;
+}
+.uploadList > .uploadListBody li.active .fileDetail {
+  display: none;
+}
+/*上传进度条及速度*/
+.uploadStatus > .progressWrapper {
+  width: 90%;
+  height: 30px;
+  background: #e3d2d0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.uploadStatus > .progressWrapper > .progressBar {
+  height: 30px;
+  background: #a7a6ac;
+}
+.uploadStatus .statusText {
+  margin-top: 5px;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+}
+/*上传文件信息*/
+.fileDetail strong {
+  display: inline-block;
+  width: 60px;
+  color: #4e5063;
+}
+.fileDetail > .link {
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 3px;
+}
+.fileDetail > .link span {
+  color: #9e9ea6;
+  overflow: hidden;
+}
+.fileDetail > .hash {
+  height: 30px;
+  line-height: 30px;
+  margin-top: 3px;
+}
+
+/*歌曲编辑按钮，songList songUpload 都有*/
+.uploadListBody li > button,
+.songList-container li > button {
+  display: none;
+  height: 60px;
+  line-height: 60px;
+  font-size: 36px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 10%;
+  margin: auto 0;
+  background: rgba(0, 0, 0, 0);
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 50px;
+  margin-top: 10px;
+}
+.songList-container li > button {
+  margin-top: 0px;
+}
+.uploadListBody li:hover > button,
+.songList-container li:hover > button {
+  display: block;
+  background: rgba(0, 0, 0, 0.1);
+}
+.uploadListBody li:hover > button:hover,
+.songList-container li:hover > button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+/*当歌曲编辑栏出现时*/
+main.edit li {
+  position: relative;
+}
+main.edit li > button {
+  height: 45px;
+  width: 20%;
+  margin-top: 7px;
+  line-height: 45px;
+  font-size: 16px;
+  right: 20px;
+}
+main.edit .songList-container li > button {
+  margin-top: 0;
+}
+
+/*歌曲编辑页面*/
+main > .songEdit-container {
+  background: RGB(255, 255, 255);
+  flex-direction: column;
+}
+.songEdit-container > .songEdit-title {
+  height: 60px;
+  line-height: 60px;
+  font-size: 24px;
+  border-bottom: 5px solid #f7f8fc;
+  color: #9997a4;
+  padding-left: 80px;
+}
+/*编辑区*/
+/*歌名 保存按钮*/
+.songEdit-container > .songDetail {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.songDetail > .songTitle {
+  height: 120px;
+  min-height: 120px;
+  border-bottom: 5px solid #f7f8fc;
+  display: flex;
+  padding-left: 80px;
+  position: relative;
+  justify-content: space-between;
+}
+.songTitle > .songName {
+  height: 120px;
+  line-height: 120px;
+  width: 320px;
+  max-width: 320px;
+  font-size: 36px;
+  color: #55576c;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.songTitle > button {
+  width: 100px;
+  min-width: 100px;
+  height: 40px;
+  border: none;
+  background: #f0f1f6;
+  color: #55576c;
+  border-radius: 5px;
+  margin: auto 10% auto 0;
+}
+.songTitle > button:hover {
+  background: #55586d;
+  cursor: pointer;
+  color: white;
+}
+.songTitle > button:focus {
+  outline: none;
+  border: none;
+}
+.songTitle > button > svg {
+  fill: #55576c;
+  width: 1.2em;
+  height: 1.2em;
+}
+.songTitle > button:hover > svg {
+  fill: white;
+}
+.songTitle > button > span {
+  font-size: 16px;
+}
+/*歌曲信息编辑区*/
+.songDetail > form {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  flex-grow: 1;
+  overflow: auto;
+}
+.songDetail > form > .row {
+  height: 80px;
+  padding-left: 80px;
+  display: flex;
+}
+.row > span {
+  height: 50px;
+  line-height: 50px;
+  color: #5f6175;
+  font-size: 18px;
+  padding-right: 10px;
+}
+.row > input {
+  padding-left: 10px;
+  width: 90%;
+  background: rgb(238, 239, 241);
+  border: none;
+  height: 50px;
+  font-size: 24px;
+  border-radius: 5px;
+}
+.row > input:focus {
+  border: none;
+  outline: none;
+  background: #f0f1f6;
+}
+.row > textarea {
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 90%;
+  height: 180px;
+  outline: none;
+  border: none;
+  background: rgb(238, 239, 241);
+  font-size: 16px;
+  border-radius: 5px;
+}
+.row > textarea:focus {
+  outline: none;
+  background: #f0f1f6;
+}
