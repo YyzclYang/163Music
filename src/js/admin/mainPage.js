@@ -20,8 +20,23 @@
       this.model = model;
       this.view.render(this.model.data);
       this.bindEvents();
+      this.bindEventHub();
     },
-    bindEvents() {}
+    bindEvents() {},
+    bindEventHub() {
+      window.eventHub.on('songUploadActive', () => {
+        $('main > .songUpload-container')
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+      });
+      window.eventHub.on('songListActive', () => {
+        $('main > .songList-container')
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+      });
+    }
   };
   controller.init(view, model);
 }

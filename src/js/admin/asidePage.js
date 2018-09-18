@@ -9,7 +9,16 @@
       $(this.el).html(this.template);
     }
   };
-  let model = {};
+  let model = {
+    data: { status: 'songUpload' },
+    statusChange() {
+      if (this.data.status === 'songUpload') {
+        this.data.status = 'songList';
+      } else {
+        this.data.status = 'songUpload';
+      }
+    }
+  };
   let controller = {
     init(view, model) {
       this.view = view;
@@ -17,7 +26,28 @@
       this.view.render(this.model.data);
       this.bindEvents();
     },
-    bindEvents() {}
+    bindEvents() {
+      $('aside > .songUpload-selector').on('click', () => {
+        if (this.model.data.status === 'songList') {
+          $('aside > .songUpload-selector')
+            .addClass('active')
+            .siblings()
+            .removeClass('active');
+          this.model.statusChange();
+        }
+        window.eventHub.trigger('songUploadActive');
+      });
+      $('aside > .songList-selector').on('click', () => {
+        if (this.model.data.status === 'songUpload') {
+          $('aside > .songList-selector')
+            .addClass('active')
+            .siblings()
+            .removeClass('active');
+          this.model.statusChange();
+          window.eventHub.trigger('songListActive');
+        }
+      });
+    }
   };
   controller.init(view, model);
 }
