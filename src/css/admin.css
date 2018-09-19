@@ -267,13 +267,14 @@ main.edit .uploadListBody .progressDetail {
   border-bottom: 2px solid RGB(234, 226, 226);
   color: #9e9ea6;
   display: flex;
+  position: relative;
 }
 .uploadList > .uploadListBody > ul > li:hover {
   background: #e8e2e2;
   cursor: pointer;
 }
 .uploadList > .uploadListBody li > .progressName {
-  padding-left: 80px;
+  padding-left: 50px;
   padding-right: 20px;
   width: 30%;
   height: 80px;
@@ -306,11 +307,44 @@ main.edit .uploadList > .uploadListBody > ul > li.active {
   background: #ffffff;
   border-bottom: 2px solid #f7f8fc;
 }
-/*表体第三列,控制上传进度条与文件信息的切换*/
-.uploadList > .uploadListBody li .uploadStatus {
+main.edit .uploadList > .uploadListBody li.active .fileDetail {
   display: none;
 }
-.uploadList > .uploadListBody li.active .uploadStatus,
+/*控制上传进度圈*/
+.uploadList > .uploadListBody li > .uploadStatus {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.uploadList > .uploadListBody li .uploadStatus.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.uploadStatus > .progressWrapper {
+  height: 50px;
+  width: 90%;
+  border-radius: 25px;
+  background: #dfdee4;
+  position: relative;
+}
+.uploadStatus > .progressWrapper > span {
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+}
+.uploadStatus > .progressWrapper > .progressBar {
+  height: 50px;
+  border-radius: 25px;
+  background: #a7a6ac;
+}
+/*表体第三列,上传文件信息*/
 .uploadList > .uploadListBody li .fileDetail {
   display: flex;
   flex-direction: column;
@@ -318,29 +352,6 @@ main.edit .uploadList > .uploadListBody > ul > li.active {
   align-items: flex-start;
   height: 80px;
 }
-.uploadList > .uploadListBody li.active .fileDetail {
-  display: none;
-}
-/*上传进度条及速度*/
-.uploadStatus > .progressWrapper {
-  width: 90%;
-  height: 30px;
-  background: #e3d2d0;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-.uploadStatus > .progressWrapper > .progressBar {
-  height: 30px;
-  background: #a7a6ac;
-}
-.uploadStatus .statusText {
-  margin-top: 5px;
-  display: block;
-  height: 30px;
-  line-height: 30px;
-}
-/*上传文件信息*/
 .fileDetail strong {
   display: inline-block;
   width: 60px;
