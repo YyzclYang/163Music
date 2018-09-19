@@ -67,15 +67,15 @@
     },
     uploadListRender(song) {
       let liTemplate = this.liTemplate;
-      let li = $(
+      let $li = $(
         `<li data-qiniuId="${song.qiniuId}" class="active">${liTemplate}</li>`
       );
 
-      li.find('.progressName').text(song.name);
+      $li.find('.progressName').text(song.name);
 
       $(this.el)
         .find('ul')
-        .append(li);
+        .append($li);
     },
     updateUpload(uploadInfo) {
       let uploadPercent = uploadInfo.percent;
