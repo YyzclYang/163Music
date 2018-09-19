@@ -318,6 +318,9 @@ main.edit .uploadList > .uploadListBody li.active .fileDetail {
   height: 80px;
   background: rgba(0, 0, 0, 0.2);
 }
+main.edit .uploadList > .uploadListBody li > .uploadStatus {
+  height: 60px;
+}
 .uploadList > .uploadListBody li .uploadStatus.active {
   display: flex;
   justify-content: center;
@@ -431,7 +434,7 @@ main > .songEdit-container {
   font-size: 24px;
   border-bottom: 5px solid #f7f8fc;
   color: #9997a4;
-  padding-left: 80px;
+  padding-left: 60px;
 }
 /*编辑区*/
 /*歌名 保存按钮*/
@@ -440,12 +443,12 @@ main > .songEdit-container {
   display: flex;
   flex-direction: column;
 }
-.songDetail > .songTitle {
+.songDetail .songTitle {
   height: 120px;
   min-height: 120px;
   border-bottom: 5px solid #f7f8fc;
   display: flex;
-  padding-left: 80px;
+  padding-left: 60px;
   position: relative;
   justify-content: space-between;
 }
@@ -491,14 +494,16 @@ main > .songEdit-container {
 }
 /*歌曲信息编辑区*/
 .songDetail > form {
-  padding-top: 20px;
   padding-bottom: 20px;
   flex-grow: 1;
   overflow: auto;
 }
-.songDetail > form > .row {
+.songDetail > form > .songInfo {
+  padding-top: 20px;
+}
+.songDetail > form > .songInfo > .row {
   height: 80px;
-  padding-left: 80px;
+  padding-left: 60px;
   display: flex;
 }
 .row > span {

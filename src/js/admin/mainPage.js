@@ -36,6 +36,9 @@
           .siblings()
           .removeClass('active');
       });
+      window.eventHub.on('songEditActive', () => {
+        $('main').addClass('edit');
+      });
     }
   };
   controller.init(view, model);

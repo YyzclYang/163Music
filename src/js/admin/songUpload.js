@@ -51,6 +51,11 @@
     find(selector) {
       return $(this.el).find(selector)[0];
     },
+    update(songData) {
+      $(`li[data-qiniuId = ${songData.qiniuId}]`)
+        .find('.progressName')
+        .text(songData.name);
+    },
     activeItem(selector) {
       $(selector)
         .addClass('active')
@@ -236,6 +241,11 @@
         this.view.unactiveItem(
           `li[data-qiniuId = ${songData.qiniuId}] > .uploadStatus`
         );
+        window.eventHub.trigger('songEditActive', {});
+        window.eventHub.trigger('songEdit', songData);
+      });
+      window.eventHub.on('songCreate', songData => {
+        this.view.update(songData);
       });
     }
   };
