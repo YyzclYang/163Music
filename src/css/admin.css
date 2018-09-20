@@ -36,11 +36,17 @@ input {
   flex-direction: column;
   position: relative;
 }
+.page > aside.edit {
+  width: 15%;
+}
 .page > main {
   flex-grow: 1;
   max-width: 75%;
   display: flex;
   overflow: hidden;
+}
+.page > main.edit {
+  max-width: 85%;
 }
 
 /*aside*/
@@ -75,7 +81,7 @@ main > .songList-container.active {
   flex-direction: column;
 }
 main > .songEdit-container {
-  width: 62%;
+  width: 73%;
   display: none;
 }
 /*控制歌曲编辑栏的显示*/
@@ -84,7 +90,7 @@ main.edit > .songEdit-container {
 }
 main.edit > .songList-container,
 main.edit > .songUpload-container {
-  max-width: 38%;
+  max-width: 27%;
 }
 /*控制歌曲列表 上传页面的显示*/
 main > .songList-container,

@@ -78,6 +78,21 @@
           console.error(error);
         }
       );
+    },
+    update(songData) {
+      // 第一个参数是 className，第二个参数是 objectId
+      var song = AV.Object.createWithoutData('Song', this.data.id);
+      // 修改属性
+      song.set('name', songData.name);
+      song.set('singer', songData.singer);
+      song.set('url', songData.url);
+      song.set('cover', songData.cover);
+      song.set('lyrics', songData.lyrics);
+      // 保存到云端
+      return song.save().then(response => {
+        Object.assign(this.data, songData);
+        return response;
+      });
     }
   };
   let controller = {
@@ -119,7 +134,21 @@
         window.eventHub.trigger('songCreate', this.model.data);
       });
     },
-    update() {}
+    update() {
+      let songInfoNeed = ['name', 'singer', 'url', 'cover', 'lyrics'];
+      let songData = {};
+      songInfoNeed.map(keyWord => {
+        songData[keyWord] = $(this.view.el)
+          .find(`input[name="${keyWord}"]`)
+          .val();
+      });
+      this.model.update(songData).then(() => {
+        $(this.view.el)
+          .find('.songName')
+          .text(this.model.data.name);
+        window.eventHub.trigger('songUpdate', this.model.data);
+      });
+    }
   };
   controller.init(view, model);
 }

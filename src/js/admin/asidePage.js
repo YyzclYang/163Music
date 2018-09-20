@@ -25,6 +25,7 @@
       this.model = model;
       this.view.render(this.model.data);
       this.bindEvents();
+      this.bindEventHub();
     },
     bindEvents() {
       $('aside > .songUpload-selector').on('click', () => {
@@ -46,6 +47,17 @@
           this.model.statusChange();
           window.eventHub.trigger('songListActive');
         }
+      });
+    },
+    bindEventHub() {
+      window.eventHub.on('songEditActive', () => {
+        $('aside').addClass('edit');
+      });
+      window.eventHub.on('songUploadActive', () => {
+        $('aside').removeClass('edit');
+      });
+      window.eventHub.on('songListActive', () => {
+        $('aside').removeClass('edit');
       });
     }
   };

@@ -25,12 +25,14 @@
     bindEvents() {},
     bindEventHub() {
       window.eventHub.on('songUploadActive', () => {
+        $(this.view.el).removeClass('edit');
         $('main > .songUpload-container')
           .addClass('active')
           .siblings()
           .removeClass('active');
       });
       window.eventHub.on('songListActive', () => {
+        $(this.view.el).removeClass('edit');
         $('main > .songList-container')
           .addClass('active')
           .siblings()

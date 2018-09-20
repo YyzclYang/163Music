@@ -29,12 +29,8 @@
             </div>
           </li>
           `);
-        if (song.id === selectedSongId) {
-          $li.addClass('active');
-        }
         return $li;
       });
-
       $(this.el)
         .find('ul')
         .empty();
@@ -43,6 +39,12 @@
           .find('ul')
           .append(liDom);
       });
+    },
+    activeItem(selector) {
+      $(selector)
+        .addClass('active')
+        .siblings()
+        .removeClass('active');
     }
   };
   let model = {
@@ -69,7 +71,10 @@
       this.bindEventHub();
     },
     bindEvents() {
-     
+      $(this.view.el).on('click', 'li', event => {
+        let songId = event.currentTarget.getAttribute('data-songId');
+        this.selectSong(songId);
+      });
     },
     bindEventHub() {
       window.eventHub.on('songListActive', () => {
@@ -78,6 +83,21 @@
         });
       });
     },
+    selectSong(songId) {
+      this.view.activeItem(`li[data-songId="${songId}"]`);
+      let songs = this.model.data.songs;
+      let songData;
+      for (let i = 0; i < songs.length; i++) {
+        if (songId === songs[i].id) {
+          songData = songs[i];
+          break;
+        }
+      }
+
+      let copySongData = JSON.parse(JSON.stringify(songData));
+      window.eventHub.trigger('songEditActive', {});
+      window.eventHub.trigger('songEdit', copySongData);
+    }
   };
   controller.init(view, model);
 }
