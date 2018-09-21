@@ -118,6 +118,9 @@
         this.model.data = songData;
         this.view.render(this.model.data);
       });
+      window.eventHub.on('uploadAdd', songData => {
+        this.view.render(songData);
+      });
     },
     create() {
       let songInfoNeed = ['name', 'singer', 'url', 'cover', 'lyrics'];

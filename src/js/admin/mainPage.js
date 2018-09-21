@@ -11,6 +11,7 @@
     `,
     render(data) {
       $(this.el).html(this.template);
+      $('main').addClass('edit');
     }
   };
   let model = {};

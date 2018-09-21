@@ -8,7 +8,8 @@
           <span>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-upload"></use>
-            </svg>点击上传</span>
+            </svg>点击上传
+          </span>
         </button>
       </div>
       <div class="uploadList">

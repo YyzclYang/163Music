@@ -192,6 +192,7 @@ main.edit .songUpload-container > .upload-title {
   border: none;
   background: #f1ebeb;
   text-align: left;
+  overflow: hidden;
 }
 #uploadButtonWrapper > #uploadButton:hover {
   background: RGB(234, 226, 226);
@@ -207,6 +208,7 @@ main.edit .songUpload-container > .upload-title {
   line-height: 80px;
   font-size: 36px;
   color: #484c61;
+  display: inline;
 }
 #uploadButton > span > svg {
   fill: #484c61;
@@ -233,6 +235,9 @@ main.edit #uploadButton > span {
 }
 /*表格*/
 /*当上传页面缩小时,表格的显示*/
+main.edit .uploadListHead > div:nth-child(1){
+  padding-left: 50px;
+}
 main.edit .uploadListHead > div:nth-child(2),
 main.edit .uploadListHead > div:nth-child(3),
 main.edit .uploadListBody .progressFileSize,
@@ -253,7 +258,7 @@ main.edit .uploadListBody .progressDetail {
   height: 60px;
 }
 .uploadList > .uploadListHead > div:nth-child(1) {
-  padding-left: 50px;
+  padding-left: 80px;
   width: 30%;
 }
 .uploadList > .uploadListHead > div:nth-child(2) {
