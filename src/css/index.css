@@ -22,8 +22,11 @@ body {
 }
 
 .m-head {
+  position: fixed;
+  z-index: 3;
   background: #d43c33;
   height: 64px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,6 +49,14 @@ body {
   text-align: center;
   border: 1px solid #d7a39c;
   border-radius: 15px;
+}
+
+.m-body > .tabs {
+  position: fixed;
+  z-index: 3;
+  top: 64px;
+  width: 100%;
+  background: white;
 }
 .m-body > .tabs > ol {
   display: flex;
@@ -92,6 +103,12 @@ body {
   color: #d33a31;
 }
 
+.m-body {
+  overflow: auto;
+}
+.m-body > .pages {
+  margin-top: 104px;
+}
 .m-body > .pages > .page-1 {
   display: none;
   padding-top: 20px;
@@ -202,4 +219,37 @@ body {
   right: 10px;
   top: 50%;
   margin-top: -11px;
+}
+
+.page-1 > .footer {
+  height: 200px;
+  margin-top: 4px;
+  background: url(//s3.music.126.net/m/s/img/recommand_bg_2x.png?d045fafc60e017b653f8065a87496922)
+    no-repeat;
+  background-size: cover;
+}
+.page-1 > .footer > .logo {
+  padding-top: 63px;
+}
+.page-1 > .footer > .logo > svg {
+  display: block;
+  width: 230px;
+  height: 44px;
+  margin: 0 auto;
+}
+.page-1 > .footer > .openApp {
+  height: 40px;
+  line-height: 38px;
+  font-size: 16px;
+  border: 1px solid #d33a31;
+  border-radius: 19px;
+  margin: 15px 37px 4px 37px;
+  color: #d33a31;
+  text-align: center;
+}
+.page-1 > .footer > .copyright {
+  font-size: 12px;
+  color: #888;
+  transform: scale(0.75);
+  text-align: center;
 }
