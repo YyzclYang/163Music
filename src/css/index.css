@@ -47,7 +47,7 @@ body {
   font-size: 15px;
   font-weight: 400;
   text-align: center;
-  border: 1px solid #eca09b;
+  border: 1px solid white;
   border-radius: 15px;
 }
 
@@ -225,23 +225,23 @@ body {
   margin-top: -12px;
 }
 
-.page-1 > .footer {
+.page-1 > .page-1-footer {
   height: 200px;
   margin-top: 4px;
   background: url(//s3.music.126.net/m/s/img/recommand_bg_2x.png?d045fafc60e017b653f8065a87496922)
     no-repeat;
   background-size: cover;
 }
-.page-1 > .footer > .logo {
+.page-1 > .page-1-footer > .logo {
   padding-top: 63px;
 }
-.page-1 > .footer > .logo > svg {
+.page-1 > .page-1-footer > .logo > svg {
   display: block;
   width: 230px;
   height: 44px;
   margin: 0 auto;
 }
-.page-1 > .footer > .openApp {
+.page-1 > .page-1-footer > .openApp {
   height: 40px;
   line-height: 38px;
   font-size: 16px;
@@ -251,7 +251,7 @@ body {
   color: #d33a31;
   text-align: center;
 }
-.page-1 > .footer > .copyright {
+.page-1 > .page-1-footer > .copyright {
   font-size: 12px;
   color: #888;
   transform: scale(0.75);
