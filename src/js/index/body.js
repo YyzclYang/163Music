@@ -24,7 +24,7 @@
     }
   };
   let model = {
-    data: []
+    data: {}
   };
   let controller = {
     init(view, model) {
@@ -35,7 +35,15 @@
       this.bindEventHub();
     },
     bindEvents() {},
-    bindEventHub() {}
+    bindEventHub() {
+      window.eventHub.on('selectPage', pageName => {
+        $(this.view.el)
+          .find(`#${pageName}`)
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+      });
+    }
   };
   controller.init(view, model);
 }

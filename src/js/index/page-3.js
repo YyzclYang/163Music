@@ -14,13 +14,13 @@
       </div>
       <div class="hotSearch">
         <h3>热门搜索</h3>
-        <ol class="hotWord">
+        <ul class="hotWord">
           <li class="word">张杰</li>
           <li class="word">凉生</li>
           <li class="word">飘向北方</li>
           <li class="word">不染</li>
           <li class="word">国风极乐夜</li>
-        </ol>
+        </ul>
       </div>
     `,
     render(data) {
@@ -28,7 +28,7 @@
     }
   };
   let model = {
-    data: []
+    data: {}
   };
   let controller = {
     init(view, model) {

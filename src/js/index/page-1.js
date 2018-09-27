@@ -7,7 +7,7 @@
     }
   };
   let model = {
-    data: []
+    data: {}
   };
   let controller = {
     init(view, model) {
