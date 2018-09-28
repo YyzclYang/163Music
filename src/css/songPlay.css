@@ -1,0 +1,152 @@
+body {
+  font: 14px/1.5 Helvetica, sans-serif;
+  color: #333;
+  outline: 0;
+}
+.pageWrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.pageWrapper > .pageBackgroundCover {
+  width: 100%;
+  height: 100vh;
+  background: transparent url(../img/song.jpeg) no-repeat center;
+  background-size: cover;
+  filter: blur(10px);
+  position: absolute;
+  top: 0;
+}
+.pageWrapper::after {
+  content: '';
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+}
+.pageWrapper > .page {
+  z-index: 1;
+}
+.pageWrapper > .page > .logo > svg {
+  width: 92px;
+  height: 17px;
+  position: fixed;
+  top: 12px;
+  left: 10px;
+  z-index: 2;
+}
+.pageWrapper > .page > .record {
+  position: relative;
+}
+.pageWrapper > .page > .record > .pointer {
+  width: 2.56rem;
+  position: absolute;
+  top: -1.866667rem;
+  left: 4.613333rem;
+  z-index: 1;
+}
+.pageWrapper > .page > .record > .discWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.866667rem;
+}
+.pageWrapper > .page > .record > .discWrapper > .disc {
+  width: 7.893333rem;
+  height: 7.893333rem;
+}
+.pageWrapper > .page > .record > .discWrapper > .discLight {
+  width: 7.893333rem;
+  height: 7.893333rem;
+  position: absolute;
+}
+.pageWrapper > .page > .record > .discWrapper > .songCover {
+  width: 4.906667rem;
+  border-radius: 50%;
+  position: absolute;
+  animation: rotation 20s infinite linear;
+  animation-play-state: paused;
+}
+.pageWrapper > .page > .record.playing > .discWrapper > .discLight,
+.pageWrapper > .page > .record.playing > .discWrapper > .songCover {
+  animation-play-state: running;
+}
+
+.pageWrapper > .page > .songInfo {
+  padding: 0 35px;
+  margin-top: 25px;
+}
+.pageWrapper > .page > .songInfo > .songTitle {
+  font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #fefefe;
+  text-align: center;
+  line-height: 1.1;
+  font-weight: 400;
+}
+.pageWrapper > .page > .songInfo > .songTitle > .songGap {
+  margin: 0 -1px;
+}
+.pageWrapper > .page > .songInfo > .songTitle > .singer {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.pageWrapper > .page > .songInfo > .lyrics {
+  margin-top: 14px;
+  text-align: center;
+}
+.pageWrapper > .page > .songInfo > .lyrics > .lines {
+  height: 88px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.pageWrapper > .page > .songInfo > .lyrics > .lines > .line {
+  padding-bottom: 8px;
+}
+.pageWrapper > .page > .songInfo > .lyrics > .lines > .line.active {
+  color: rgb(255, 255, 255);
+}
+
+.pageWrapper > .page > .linkWrapper {
+  position: fixed;
+  width: 100%;
+  bottom: 10px;
+  z-index: 1;
+}
+.pageWrapper > .page > .linkWrapper > .link {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.pageWrapper > .page > .linkWrapper > .link > a > div {
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  width: 4.6rem;
+  text-align: center;
+  border: 1px solid #d33a31;
+  border-radius: 20px;
+}
+.pageWrapper > .page > .linkWrapper > .link > a > .open {
+  color: #d33a31;
+}
+.pageWrapper > .page > .linkWrapper > .link > a > .down {
+  background: #d33a31;
+  color: #ffffff;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
