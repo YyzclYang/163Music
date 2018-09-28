@@ -123,13 +123,16 @@
       });
     },
     create() {
-      let songInfoNeed = ['name', 'singer', 'url', 'cover', 'lyrics'];
+      let songInfoNeed = ['name', 'singer', 'url', 'cover']; //+ lyrics
       let songData = {};
       songInfoNeed.map(keyWord => {
         songData[keyWord] = $(this.view.el)
           .find(`input[name="${keyWord}"]`)
           .val();
       });
+      songData['lyrics'] = $(this.view.el)
+        .find(`textarea[name="lyrics"]`)
+        .val();
       this.model.create(songData).then(() => {
         $(this.view.el)
           .find('.songName')
@@ -138,13 +141,16 @@
       });
     },
     update() {
-      let songInfoNeed = ['name', 'singer', 'url', 'cover', 'lyrics'];
+      let songInfoNeed = ['name', 'singer', 'url', 'cover']; //+lyrics
       let songData = {};
       songInfoNeed.map(keyWord => {
         songData[keyWord] = $(this.view.el)
           .find(`input[name="${keyWord}"]`)
           .val();
       });
+      songData['lyrics'] = $(this.view.el)
+        .find(`textarea[name="lyrics"]`)
+        .val();
       this.model.update(songData).then(() => {
         $(this.view.el)
           .find('.songName')
