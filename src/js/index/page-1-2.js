@@ -57,7 +57,6 @@
     init(view, model) {
       this.view = view;
       this.model = model;
-      this.view.render(this.model.data);
       this.bindEvents();
       this.bindEventHub();
     },

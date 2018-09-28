@@ -13,7 +13,7 @@
         </ul>
       </div>
       <div class="more">
-        <span>查看完整榜单 ></span>
+        <span>查看完整榜单</span>
       </div>
     `,
     render(data) {
@@ -29,10 +29,9 @@
         }
         return mouth + '月' + day + '日';
       }
-      let currentDate = getCurrentDate();
-      this.template = this.template.replace('__currentDate__', currentDate);
+      let template = this.template.replace('__currentDate__', getCurrentDate());
 
-      $(this.el).html(this.template);
+      $(this.el).html(template);
       let { songs } = data;
       let index = 0;
       let isActive;
