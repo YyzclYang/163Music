@@ -2,6 +2,7 @@
   let view = {
     el: '#pageWrapper',
     template: `
+      <audio src="#"></audio>
       <div class="pageBackgroundCover"></div>
       <div class="page">
         <div class="logo">
@@ -43,55 +44,187 @@
           <div class="discWrapper">
             <img class="disc" src="./img/disc.png" alt="">
             <img class="discLight" src="./img/discLight.png" alt="">
-            <img class="songCover" src="./img/song.jpeg" alt="cover">
-            <div class="iconWrapper">
-            </div>
+            <img class="songCover" src="" onerror="onerror=null;src='./img/discDefault.png'" alt="cover">
+            <div class="icon active"></div>
           </div>
         </div>
         <div class="songInfo">
           <div class="songTitle">
-            <span class="songName">年少有为</span>
+            <span class="songName">name</span>
             <span class="songGap">-</span>
-            <span class="singer">李荣浩</span>
+            <span class="singer"></span>
           </div>
           <div class="lyrics">
             <div class="lines">
-              <p class="line active">作曲 : 李荣浩</p>
-              <p class="line">作词 : 李荣浩</p>
-              <p class="line">编曲：李荣浩</p>
             </div>
           </div>
         </div>
-        <div class="linkWrapper">
-          <div class="link">
-            <a href="">
-              <div class="open">打 开</div>
-            </a>
-            <a href="">
-              <div class="down">下 载</div>
-            </a>
-          </div>
+      </div>
+      <div class="linkWrapper">
+        <div class="link">
+          <a href="#">
+            <div class="open">打 开</div>
+          </a>
+          <a href="#">
+            <div class="down">下 载</div>
+          </a>
         </div>
       </div>
     `,
     render(data) {
+      let { song, status } = data;
       $(this.el).html(this.template);
+      if (
+        $(this.el)
+          .find('audio')
+          .attr('src') !== song.url
+      ) {
+        $(this.el)
+          .find('audio')
+          .attr('src', song.url);
+        $(this.el).find('audio')[0].onended = () => {
+          window.eventHub.trigger('songEnd');
+        };
+        $(this.el).find('audio')[0].ontimeupdate = () => {
+          this.showLyrics($(this.el).find('audio')[0].currentTime, song);
+        };
+      }
+      $(this.el)
+        .find('.songTitle > .songName')
+        .html(song.name);
+      $(this.el)
+        .find('.songTitle > .singer')
+        .html(song.singer);
+      $(this.el)
+        .find('.discWrapper > .songCover')
+        .attr('src', song.cover);
+      $(this.el)
+        .find('.pageBackgroundCover')
+        .css('background-image', `url(${song.cover})`);
+
+      let { lyrics } = song;
+      if (lyrics) {
+        let lyricsArr = lyrics.split('\n');
+        lyricsArr.map(string => {
+          string = string.split('[')[1].split(']');
+          let lyric = string[1];
+          let lyricTimeArr = string[0].split(':');
+          let lyricTime =
+            parseInt(lyricTimeArr[0], 10) * 60 +
+            parseFloat(lyricTimeArr[1], 10);
+          let lyricsP = $(
+            `<p class="line" data-time="${lyricTime}">${lyric}</p>`
+          );
+          $(this.el)
+            .find('.lyrics > .lines')
+            .append(lyricsP);
+        });
+      }
+    },
+    playing() {
+      $(this.el)
+        .find('audio')[0]
+        .play();
+      $(this.el)
+        .find('.record')
+        .addClass('playing');
+      $(this.el)
+        .find('.icon')
+        .removeClass('active');
+    },
+    pause() {
+      $(this.el)
+        .find('audio')[0]
+        .pause();
+      $(this.el)
+        .find('.record')
+        .removeClass('playing');
+      $(this.el)
+        .find('.icon')
+        .addClass('active');
+    },
+    changePlayStatus(playStatus) {
+      if (playStatus === 'playing') {
+        this.playing();
+      } else {
+        this.pause();
+      }
+    },
+    showLyrics(songCurrentTime, { lyrics }) {
+      if (!lyrics) {
+        return;
+      }
+      let lyricsArr = lyrics.split('\n');
+      let lyricTime = [];
+      let index = 0;
+      lyricsArr.map(string => {
+        let lyricTimeArr = string
+          .split('[')[1]
+          .split(']')[0]
+          .split(':');
+        lyricTime[index++] =
+          parseInt(lyricTimeArr[0], 10) * 60 + parseFloat(lyricTimeArr[1], 10);
+      });
+      let currentPNum;
+
+      for (let i = 0; i < lyricTime.length; i++) {
+        if (i === lyricTime.length - 1) {
+          currentPNum = i;
+          break;
+        } else if (songCurrentTime < lyricTime[0]) {
+          currentPNum = 0;
+          break;
+        } else if (
+          songCurrentTime >= lyricTime[i] &&
+          songCurrentTime <= lyricTime[i + 1]
+        ) {
+          currentPNum = i;
+          break;
+        }
+      }
+
+      let currentP = $(this.el).find('.lines > p')[currentPNum];
+
+      let linesTop = $(this.el)
+        .find('.lines')[0]
+        .getBoundingClientRect().top;
+      let currentPTop = currentP.getBoundingClientRect().top;
+      let currentpHeight = $(this.el)
+        .find('.lines > p')
+        [currentPNum - 1].getBoundingClientRect().height;
+      let moveHeight = currentPTop - linesTop - currentpHeight;
+      if (moveHeight < 0) {
+        moveHeight = 0;
+      }
+      $(this.el)
+        .find('.lyrics > .lines')
+        .css({ transform: `translateY(${-moveHeight}px)` });
+      $(currentP)
+        .addClass('active')
+        .siblings()
+        .removeClass('active');
     }
   };
   let model = {
     data: {
-      song: {},
-      status: 'paused'
+      song: {
+        id: '',
+        name: '',
+        singer: '',
+        url: '',
+        lyrics: ''
+      },
+      status: 'playing'
     },
     setSongId(songId) {
       this.data.song.id = songId;
     },
     getSong(songId) {
-      var query = new AV.Query('Song');
-      query.get(songId).then(
+      let query = new AV.Query('Song');
+      return query.get(songId).then(
         song => {
           // 成功获得实例
-          Object.assign(this.data.song, { id: song.id, ...song.attributes });
+          Object.assign(this.data.song, { id: songId, ...song.attributes });
           return song;
         },
         error => {
@@ -104,12 +237,30 @@
     init(view, model) {
       this.view = view;
       this.model = model;
-      this.view.render(this.model.data);
       this.bindEvents();
+      this, this.bindEventHub();
       this.getSongId();
-      this.model.getSong(this.model.data.song.id);
+      this.model.getSong(this.model.data.song.id).then(data => {
+        this.view.render(this.model.data);
+        this.model.data.status = 'playing';
+        this.view.changePlayStatus(this.model.data.status);
+      });
     },
-    bindEvents() {},
+    bindEvents() {
+      $(this.view.el).on('click', '.page', () => {
+        if (this.model.data.status === 'playing') {
+          this.model.data.status = 'pause';
+        } else {
+          this.model.data.status = 'playing';
+        }
+        this.view.changePlayStatus(this.model.data.status);
+      });
+    },
+    bindEventHub() {
+      window.eventHub.on('songEnd', () => {
+        this.view.pause();
+      });
+    },
     getSongId() {
       let search = window.location.search;
       if (search.indexOf('?') === 0) {
