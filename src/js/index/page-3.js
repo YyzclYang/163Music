@@ -6,8 +6,8 @@
         <svg class="icon icon-search" aria-hidden="true">
           <use xlink:href="#icon-search"></use>
         </svg>
-        <input type="search" name="search" class="search">
-        <label>搜索歌曲、歌手、专辑</label>
+        <input type="text" name="search">
+        <label class="active">搜索歌曲、歌手、专辑</label>
         <svg class="icon icon-close" aria-hidden="true">
           <use xlink:href="#icon-close"></use>
         </svg>
@@ -38,7 +38,19 @@
       this.bindEvents();
       this.bindEventHub();
     },
-    bindEvents() {},
+    bindEvents() {
+      $('.search').on('input propertychange', () => {
+        if ($(`input[name=search]`).val().length > 0) {
+          $('.search').addClass('active');
+        } else {
+          $('.search').removeClass('active');
+        }
+      });
+      $('.search > .icon').on('click', () => {
+        $(`input[name=search]`).val('');
+        $('.search').removeClass('active');
+      });
+    },
     bindEventHub() {}
   };
   controller.init(view, model);

@@ -21,8 +21,8 @@ input {
   font: inherit;
 }
 .icon {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1em;
+  height: 1em;
   vertical-align: -0.15em;
   fill: rgb(228, 212, 207);
   overflow: hidden;

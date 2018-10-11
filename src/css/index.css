@@ -392,7 +392,11 @@ body {
   border-radius: 15px;
   padding-left: 30px;
 }
+.page-3 > .search.active > label {
+  display: none;
+}
 .page-3 > .search > label {
+  display: inline-block;
   color: #c9c9c9;
   font-size: 14px;
   position: absolute;
@@ -403,7 +407,7 @@ body {
 .page-3 > .search > .icon-close {
   display: none;
 }
-.page-3 > .search > .icon-close.active {
+.page-3 > .search.active > .icon-close {
   display: block;
   position: absolute;
   right: 17px;
