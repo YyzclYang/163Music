@@ -415,7 +415,11 @@ body {
   margin-top: 22px;
 }
 .page-3 > .hotSearch {
+  display: none;
   padding: 15px 10px 0;
+}
+.page-3 > .hotSearch.active {
+  display: block;
 }
 .page-3 > .hotSearch > h3 {
   line-height: 12px;
@@ -423,12 +427,12 @@ body {
   color: #666;
   font-weight: 400;
 }
-.page-3 > .hotSearch > .hotWord {
+.page-3 > .hotSearch > .hotWords {
   margin: 10px 0 7px;
   display: flex;
   flex-wrap: wrap;
 }
-.page-3 > .hotSearch > .hotWord > .word {
+.page-3 > .hotSearch > .hotWords > .hotWord {
   height: 32px;
   line-height: 30px;
   display: inline-block;
@@ -437,4 +441,44 @@ body {
   border-radius: 16px;
   padding: 0 13px;
   margin: 0 8px 8px 0;
+}
+.page-3 > .searchOptions {
+  display: none;
+}
+.page-3 > .searchOptions.active {
+  display: block;
+}
+.page-3 > .searchOptions > .searchTitle {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #efeff0;
+  margin-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  color: #507daf;
+}
+.page-3 > .searchOptions > ul > li {
+  padding-left: 10px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+}
+.page-3 > .searchOptions > ul > li > .icon {
+  height: 15px;
+  width: 15px;
+  margin-right: 8px;
+}
+.page-3 > .searchOptions > ul > li > span {
+  flex-grow: 1;
+  font-size: 15px;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  border-bottom: 1px solid #efeff0;
+}
+.page-3 > .searchResult {
+  display: none;
+}
+.page-3 > .searchResult.active {
+  display: block;
 }
