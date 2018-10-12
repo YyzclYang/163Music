@@ -29,7 +29,6 @@
       </div>
       <div class="searchResult">
         <ul>
-          <li>搜索结果</li>
         </ul>
       </div>
     `,
@@ -124,7 +123,8 @@
     bindEvents() {
       //点击热词
       $('.hotWords').on('click', 'li', event => {
-        window.eventHub.trigger('searching');
+        $('.search').addClass('active');
+        $('.hotSearch').removeClass('active');
         let searchWord = event.target.innerText;
         this.model.data.searchOptions.searchTitle = searchWord;
         window.eventHub.trigger('searched', { searchWord });
@@ -161,7 +161,7 @@
       window.eventHub.on('searching', () => {
         $('.search').addClass('active');
         $('.hotSearch').removeClass('active');
-        //设置搜索提示词
+        //显示搜索提示词
         $('.searchOptions').addClass('active');
         this.view.renderSearchWord(this.model.data.searchOptions);
         $('.searchResult').removeClass('active');

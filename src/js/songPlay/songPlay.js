@@ -189,9 +189,12 @@
         .find('.lines')[0]
         .getBoundingClientRect().top;
       let currentPTop = currentP.getBoundingClientRect().top;
-      let currentpHeight = $(this.el)
-        .find('.lines > p')
-        [currentPNum - 1].getBoundingClientRect().height;
+      let currentpHeight = 0;
+      if (currentPNum > 0) {
+        currentpHeight = $(this.el)
+          .find('.lines > p')
+          [currentPNum - 1].getBoundingClientRect().height;
+      }
       let moveHeight = currentPTop - linesTop - currentpHeight;
       if (moveHeight < 0) {
         moveHeight = 0;
