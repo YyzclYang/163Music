@@ -171,12 +171,14 @@ body {
   width: 100%;
   vertical-align: middle;
 }
-.page-1-2 > ul > li {
+.page-1-2 > ul > li,
+.page-3 > .searchResult > ul > li {
   margin-left: 10px;
   position: relative;
   padding: 6px 0;
 }
-.page-1-2 > ul > li::after {
+.page-1-2 > ul > li::after,
+.page-3 > .searchResult > ul > li::after {
   content: '';
   background: #efeff0;
   height: 1px;
@@ -184,17 +186,20 @@ body {
   position: absolute;
   bottom: 0;
 }
-.page-1-2 > ul > li > a > h3 {
+.page-1-2 > ul > li > a > h3,
+.page-3 > .searchResult > ul > li > a > h3 {
   font-size: 17px;
   font-weight: 400;
   height: 25px;
   line-height: 25px;
 }
-.page-1-2 > ul > li > a > h3 > span {
+.page-1-2 > ul > li > a > h3 > span,
+.page-3 > .searchResult > ul > li > a > h3 > span {
   margin-left: 4px;
   color: #888;
 }
-.page-1-2 > ul > li > a > .singer {
+.page-1-2 > ul > li > a > .singer,
+.page-3 > .searchResult > ul > li > a > .singer {
   font-size: 12px;
   color: #888;
   overflow: hidden;
@@ -204,7 +209,11 @@ body {
   height: 18px;
   line-height: 18px;
 }
-.page-1-2 > ul > li > a > .singer > .sq {
+.page-3 > .searchResult > ul > li > a > .singer {
+  color: #507daf;
+}
+.page-1-2 > ul > li > a > .singer > .sq,
+.page-3 > .searchResult > ul > li > a > .singer > .sq {
   background: url(//s3.music.126.net/m/s/img/index_icon_2x.png?5207a28c3767992ca4bb6d4887c74880)
     no-repeat;
   width: 12px;
@@ -213,7 +222,8 @@ body {
   background-size: 166px 97px;
   margin-right: 1px;
 }
-.page-1-2 > ul > li > a > .playButton {
+.page-1-2 > ul > li > a > .playButton,
+.page-3 > .searchResult > ul > li > a > .playButton {
   width: 22px;
   height: 22px;
   position: absolute;

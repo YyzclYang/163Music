@@ -29,7 +29,7 @@
       </div>
       <div class="searchResult">
         <ul>
-        <li>12333</li>
+          <li>搜索结果</li>
         </ul>
       </div>
     `,
@@ -66,6 +66,33 @@
       $(this.el)
         .find(`input[name=search]`)
         .val(searchWord);
+      let liList = songs.map(song => {
+        return $(`
+            <li>
+              <a href="./songPlay.html?id=${song.id}">
+                <h3>
+                  ${song.name}
+                  <span>${song.minorName || ''}</span>
+                </h3>
+                <div class="singer">
+                  <div class="sq"></div>
+                  ${song.singer}
+                </div>
+                <svg class="icon playButton" aria-hidden="true">
+                  <use xlink:href="#icon-play-button"></use>
+                </svg>
+              </a>
+            </li>
+          `);
+      });
+      $(this.el)
+        .find('.searchResult > ul')
+        .empty();
+      liList.map(liDom => {
+        $(this.el)
+          .find('.searchResult > ul')
+          .append(liDom);
+      });
     }
   };
   let model = {
@@ -95,6 +122,14 @@
       this.bindEventHub();
     },
     bindEvents() {
+      //点击热词
+      $('.hotWords').on('click', 'li', event => {
+        window.eventHub.trigger('searching');
+        let searchWord = event.target.innerText;
+        this.model.data.searchOptions.searchTitle = searchWord;
+        window.eventHub.trigger('searched', { searchWord });
+      });
+      //判断输入框的状态
       $('.search').on('input propertychange', () => {
         if ($(`input[name=search]`).val().length > 0) {
           this.model.data.searchOptions.searchTitle = $(
@@ -105,14 +140,17 @@
           window.eventHub.trigger('clearSearch');
         }
       });
+      //点击搜索框清除按钮
       $('.search > .icon').on('click', () => {
         window.eventHub.trigger('clearSearch');
       });
+      //点击搜索提示词语
       $('.searchWords').on('click', 'li', event => {
         let searchWord = event.target.innerText;
         this.model.data.searchOptions.searchTitle = searchWord;
         window.eventHub.trigger('searched', { searchWord });
       });
+      //点击搜索输入框，焦点聚集到搜索框
       $('input[name=search]').focus(() => {
         if ($(`input[name=search]`).val().length > 0) {
           window.eventHub.trigger('searching');
