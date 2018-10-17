@@ -99,7 +99,7 @@
       songs: [],
       searchOptions: {
         searchTitle: '',
-        searchWords: ['One', 'Two', 'Three']
+        searchWords: ['测试数据一', '测试数据二', '测试数据三']
       }
     },
     find(data) {
